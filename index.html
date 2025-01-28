@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Productivity Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        #task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <h1>Enhanced Productivity Dashboard</h1>
+        <h2>Quote:The Secret of getting ahead is getting Started!</h2>
+        <button onclick="toggleMode()">Switch Mode</button>
+        <div id="task-manager">
+            <h2>Task Manager</h2>
+            <input type="text" id="task-input" placeholder="Enter your task">
+            <button onclick="addTask()">Add Task</button>
+            <ul id="task-list"></ul>
+        </div>
+        <div id="progress-tracker">
+            <h2>Progress Tracker</h2>
+            <progress id="progress" value="0" max="100"></progress>
+            <p id="progress-text">Progress: 0%</p>
+
+        </div>
+    </div>
+
+    <script>
+        let mode = 'light';
+        let taskCount = 0;
+
+        function toggleMode() {
+            mode = mode === 'light' ? 'dark' : 'light';
+            document.body.className = mode + '-mode';
+        }
+
+        function addTask() {
+            const taskInput = document.getElementById('task-input');
+            const taskList = document.getElementById('task-list');
+            const newTask = document.createElement('li');
+            newTask.textContent = taskInput.value;
+            taskList.appendChild(newTask);
+            taskInput.value = '';
+            taskCount++;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            const progressText = document.getElementById('progress-text');
+            const progressValue = (taskCount / 10) * 100; // Assuming 10 tasks for full progress
+            progress.value = progressValue > 100 ? 100 : progressValue;
+            progressText.textContent = `Progress: ${progressValue.toFixed(0)}%`;
+        }
+    </script>
+</body>
+</html>
